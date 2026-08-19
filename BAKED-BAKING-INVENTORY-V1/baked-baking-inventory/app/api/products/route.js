@@ -1,0 +1,2 @@
+import { prisma } from '../../../lib/prisma';
+export async function POST(req){try{const d=await req.json();const p=await prisma.product.create({data:{sku:d.sku.trim(),name:d.name.trim(),category:d.category||'Ingredient',unit:d.unit||'unit',reorderLevel:Number(d.reorderLevel||0)}});return Response.json(p,{status:201});}catch(e){return Response.json({error:'Product could not be created. Check that the SKU is unique.'},{status:400});}}
