@@ -1,0 +1,2 @@
+import {prisma} from '../../../lib/prisma';
+export async function POST(req){try{const d=await req.json();const x=await prisma.recipe.create({data:{name:d.name.trim(),outputProductId:Number(d.outputProductId),outputQuantity:Number(d.outputQuantity||1),notes:d.notes||null,items:{create:[{productId:Number(d.inputProductId),quantity:Number(d.inputQuantity)}]}}});return Response.json(x,{status:201});}catch(e){return Response.json({error:e.message||'Recipe failed'},{status:400});}}

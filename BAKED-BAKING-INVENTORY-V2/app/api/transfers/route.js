@@ -1,0 +1,2 @@
+import {prisma} from '../../../lib/prisma';
+export async function POST(req){try{const d=await req.json();const x=await prisma.stockTransfer.create({data:{transferNumber:d.transferNumber.trim(),productId:Number(d.productId),quantity:Number(d.quantity),fromLocation:d.fromLocation,toLocation:d.toLocation,note:d.note||null}});return Response.json(x,{status:201});}catch(e){return Response.json({error:e.message||'Transfer failed'},{status:400});}}

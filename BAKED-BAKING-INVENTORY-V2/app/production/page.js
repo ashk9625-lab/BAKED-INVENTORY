@@ -1,0 +1,6 @@
+import {Shell,EmptyRow} from '../components'; import {prisma} from '../../lib/prisma'; import Form from './form';
+export const dynamic='force-dynamic';
+export default async function Page(){const [recipes,batches]=await Promise.all([prisma.recipe.findMany({where:{active:true},include:{outputProduct:true,items:{include:{product:true}}},orderBy:{name:'asc'}}),prisma.productionBatch.findMany({orderBy:{createdAt:'desc'},take:100})]);const rs=recipes.map(r=>({id:r.id,name:r.name,outputProduct:r.outputProduct.name,outputUnit:r.outputProduct.unit,outputQuantity:Number(r.outputQuantity),items:r.items.map(i=>({name:i.product.name,unit:i.product.unit,quantity:Number(i.quantity)}))}));return <Shell>
+<div className="topbar"><div className="title"><h1>Production</h1><p>Run recipe batches and automatically consume stock.</p></div></div><div className="card"><Form recipes={rs}/></div>
+<section className="section"><div className="table-wrap"><table><thead><tr><th>Batch</th><th>Product</th><th>Qty Made</th><th>Status</th><th>Notes</th><th>Date</th></tr></thead><tbody>
+{batches.length?batches.map(b=><tr key={b.id}><td>{b.batchNumber}</td><td>{b.productName}</td><td>{Number(b.quantityMade)} {b.unit}</td><td>{b.status}</td><td>{b.notes||'-'}</td><td>{b.createdAt.toLocaleString()}</td></tr>):<EmptyRow colSpan={6}/>}</tbody></table></div></section></Shell>}

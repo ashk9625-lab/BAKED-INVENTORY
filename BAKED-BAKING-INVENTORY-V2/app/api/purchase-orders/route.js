@@ -1,0 +1,2 @@
+import {prisma} from '../../../lib/prisma';
+export async function POST(req){try{const d=await req.json();const x=await prisma.purchaseOrder.create({data:{poNumber:d.poNumber.trim(),supplierId:Number(d.supplierId),expectedDate:d.expectedDate?new Date(d.expectedDate):null,notes:d.notes||null,items:{create:[{productId:Number(d.productId),quantityOrdered:Number(d.quantityOrdered),unitCost:Number(d.unitCost||0)}]}}});return Response.json(x,{status:201});}catch(e){return Response.json({error:e.message||'PO failed'},{status:400});}}
