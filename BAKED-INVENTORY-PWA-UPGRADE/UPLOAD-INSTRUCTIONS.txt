@@ -1,0 +1,41 @@
+BAKED INVENTORY – INSTALL APP UPGRADE
+
+Upload these files into your existing:
+BAKED-BAKING-INVENTORY-V2
+
+IMPORTANT:
+1. Keep the exact folder structure.
+2. REPLACE:
+   - app/components.js
+   - app/layout.js
+3. ADD:
+   - app/install-button.js
+   - public/manifest.webmanifest
+   - public/service-worker.js
+   - public/icon-192.png
+   - public/icon-512.png
+   - public/apple-touch-icon.png
+4. COPY the contents of app/globals-PWA-ADD.css to the BOTTOM of your existing app/globals.css.
+   Do NOT replace your whole globals.css with this small file.
+
+After upload, Vercel should deploy automatically.
+
+HOW STAFF INSTALL IT
+
+ANDROID:
+- Open https://baked-inventory.vercel.app in Chrome.
+- Tap “Install App” in the left menu.
+- Confirm Install.
+- The BAKED Inventory app appears on the phone home screen/app drawer.
+
+IPHONE / IPAD:
+- Open https://baked-inventory.vercel.app in Safari.
+- Tap “Install App”.
+- Follow the message: Share → Add to Home Screen.
+- Tap Add.
+
+DESKTOP:
+- Chrome/Edge can also install the inventory as an app.
+
+NOTE:
+The app still uses the live online database. The service worker is mainly for app-shell/install support.
