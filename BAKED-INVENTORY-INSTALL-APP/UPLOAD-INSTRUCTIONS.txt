@@ -1,0 +1,26 @@
+BAKED INVENTORY – INSTALL APP BUTTON
+
+Use these files with BAKED-BAKING-INVENTORY-V2.
+
+1. REPLACE:
+   app/components.js
+   app/layout.js
+
+2. ADD:
+   app/install-button.js
+   public/manifest.webmanifest
+   public/service-worker.js
+   public/icon-192.png
+   public/icon-512.png
+   public/apple-touch-icon.png
+
+3. Open app/ADD-TO-globals.css.txt and copy its CSS to the BOTTOM of your existing app/globals.css.
+   Do NOT replace your full globals.css.
+
+After GitHub upload, allow Vercel to redeploy.
+
+ANDROID:
+Open the inventory in Chrome → tap Install App → Install.
+
+IPHONE/IPAD:
+Open in Safari → tap Install App → Share → Add to Home Screen.
