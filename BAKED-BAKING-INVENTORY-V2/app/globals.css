@@ -17,3 +17,27 @@ button{border:0;border-radius:10px;padding:11px 15px;background:#f2f5f2;color:#1
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}.grid3{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.shell{grid-template-columns:1fr}.sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid #252a27}.nav{grid-template-columns:repeat(2,1fr)}.main{padding:20px}}
 @media(max-width:600px){.grid,.grid3,.form-grid{grid-template-columns:1fr}}
+
+.install-wrap{margin-top:18px;margin-bottom:6px}
+.install-button{
+  width:100%;
+  border:1px solid #3a413b;
+  border-radius:10px;
+  padding:11px 12px;
+  background:#f2f5f2;
+  color:#111;
+  font-weight:800;
+  cursor:pointer;
+}
+.install-button:hover{filter:brightness(.94)}
+.install-button:disabled{cursor:default;opacity:.7}
+.install-help{
+  margin-top:9px;
+  padding:10px 11px;
+  border:1px solid #303631;
+  border-radius:10px;
+  background:#0f120f;
+  color:#cbd1cc;
+  font-size:12px;
+  line-height:1.45;
+}
