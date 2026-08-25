@@ -1,0 +1,49 @@
+BAKED INVENTORY – MONDAY-STYLE WORK MANAGEMENT
+===============================================
+
+THIS MODULE IS DESIGNED TO BE UPLOADED INTO YOUR EXISTING:
+BAKED-BAKING-INVENTORY-V2/app
+
+1. Extract this ZIP.
+2. Upload the entire folder:
+   app/work-management
+   into:
+   BAKED-BAKING-INVENTORY-V2/app
+
+3. In your existing app/components.js add this sidebar link:
+   ['/work-management','Work Management'],
+
+   Put it directly after Dashboard.
+
+4. Commit the changes and allow Vercel to deploy.
+
+WHAT IT INCLUDES
+----------------
+- Monday-style board interface
+- Groups
+- Editable task/item rows
+- Owners
+- Status
+- Priority
+- Due date
+- Notes
+- Checkbox completion
+- Updates/comments panel
+- Search
+- Table view
+- Kanban view
+- Live counters
+- Add/delete groups
+- Add/delete items
+
+IMPORTANT
+---------
+This first version stores work-management data in the browser's local storage.
+That means it does NOT change or risk your existing stock database and is much
+safer to deploy while the inventory's Prisma/auth upgrade is still being repaired.
+
+Once the interface is live and approved, it can be connected to the shared
+database so all staff see the same boards from every phone/computer.
+
+This recreates the workflow and interaction style of modern work-management
+platforms without copying Monday.com's branding or proprietary source code.
