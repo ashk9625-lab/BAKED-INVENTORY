@@ -1,5 +1,0 @@
-import { Shell } from '../components';
-import { prisma } from '../../lib/prisma';
-import MovementForm from './movement-form';
-export const dynamic='force-dynamic';
-export default async function Inventory(){const products=await prisma.product.findMany({orderBy:{name:'asc'}});const movements=await prisma.stockMovement.findMany({take:50,orderBy:{createdAt:'desc'},include:{product:true}});return <Shell><div className="topbar"><div className="title"><h1>Stock Movements</h1><p>Receive, issue, adjust and write off stock with a full history.</p></div></div><div className="card"><MovementForm products={products.map(p=>({id:p.id,name:p.name,sku:p.sku}))}/></div><section className="section"><div className="table-wrap"><table><thead><tr><th>Date</th><th>SKU</th><th>Product</th><th>Type</th><th>Qty</th><th>Batch</th><th>Note</th></tr></thead><tbody>{movements.map(m=><tr key={m.id}><td>{m.createdAt.toLocaleString()}</td><td>{m.product.sku}</td><td>{m.product.name}</td><td>{m.type}</td><td>{Number(m.quantity)}</td><td>{m.batchRef||'-'}</td><td>{m.note||'-'}</td></tr>)}</tbody></table></div></section></Shell>}
