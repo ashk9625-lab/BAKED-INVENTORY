@@ -13,7 +13,6 @@ export async function Shell({children, requiredRoles=[]}) {
     ['/production','Production'],
     ['/recipes','Recipes / BOM'],
     ['/suppliers','Suppliers'],
-    ['/transfers','Transfers'],
     ['/reports','Reports'],
     ...(user.role === 'ADMIN' ? [['/team','Team & Permissions']] : [])
   ];
