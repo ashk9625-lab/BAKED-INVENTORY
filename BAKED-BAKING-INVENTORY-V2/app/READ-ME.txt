@@ -1,0 +1,11 @@
+BAKED WORK MANAGEMENT - CORRECT UPLOAD
+
+This ZIP contains ONLY the work-management folder.
+
+Upload the folder directly into:
+BAKED-BAKING-INVENTORY-V2/app/
+
+Correct final path:
+BAKED-BAKING-INVENTORY-V2/app/work-management/
+
+Do NOT upload it into another app folder.
