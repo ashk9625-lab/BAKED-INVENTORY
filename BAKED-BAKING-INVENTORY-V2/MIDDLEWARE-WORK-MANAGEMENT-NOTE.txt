@@ -1,0 +1,5 @@
+If your current V3 middleware has role checking, add this before the final return:
+if (pathname.startsWith('/api/work')) {
+  if (method === 'GET' || method === 'HEAD') return true;
+  return role !== 'VIEW_ONLY';
+}

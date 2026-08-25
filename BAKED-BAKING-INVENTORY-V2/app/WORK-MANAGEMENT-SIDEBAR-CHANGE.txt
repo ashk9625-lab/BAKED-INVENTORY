@@ -1,0 +1,11 @@
+In app/components.js add this link to the links array, preferably after Dashboard:
+
+['/work', 'Work Management'],
+
+Example:
+const links = [
+  ['/', 'Dashboard'],
+  ['/work', 'Work Management'],
+  ['/products','Products'],
+  ...
+];

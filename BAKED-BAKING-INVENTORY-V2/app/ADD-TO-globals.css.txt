@@ -1,0 +1,22 @@
+/* BAKED Inventory V4 – Work Management */
+.work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.work-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.work-workspace h2,.work-board-card h2{margin:5px 0 8px}
+.work-board-list{display:grid;gap:7px;margin-top:14px}
+.work-board-link{display:flex;justify-content:space-between;padding:10px;border-radius:9px;background:#0f120f;border:1px solid #252a27}
+.metric-small{font-weight:800;margin-top:18px}
+.link-button{padding:0;background:none;color:#fff;text-align:left;font-weight:800}
+.work-table select,.work-table input{min-width:125px;padding:8px}
+.kanban{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:14px;overflow:auto}
+.kanban-column{background:#101310;border:1px solid #252a27;border-radius:14px;padding:12px;min-height:300px}
+.kanban-head{display:flex;justify-content:space-between;margin-bottom:12px}
+.kanban-card{background:#181d19;border:1px solid #2a302b;border-radius:12px;padding:12px;margin-bottom:10px;display:grid;gap:7px;cursor:pointer}
+.kanban-card span{font-size:12px;color:#aab4ac}
+.work-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:flex;justify-content:flex-end;z-index:100}
+.work-panel{width:min(520px,94vw);height:100%;overflow:auto;background:#111411;border-left:1px solid #303631;padding:28px}
+.panel-close{float:right;background:#202620;color:#fff;font-size:22px;padding:5px 11px}
+.comment-list{display:grid;gap:10px;margin:16px 0}
+.comment{padding:12px;border:1px solid #292f2a;background:#151915;border-radius:10px}
+.comment p{margin:7px 0 0}
+@media(max-width:1000px){.work-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.work-grid{grid-template-columns:1fr}.kanban{grid-template-columns:repeat(4,85vw)}}

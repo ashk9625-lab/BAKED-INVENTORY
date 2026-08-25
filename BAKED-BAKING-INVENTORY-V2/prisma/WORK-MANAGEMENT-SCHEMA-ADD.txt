@@ -1,0 +1,57 @@
+IMPORTANT:
+In prisma/schema.prisma, first fix TeamMember:
+  updatedAt DateTime @default(now()) @updatedAt
+
+Then add these relation fields inside TeamMember:
+  assignedWorkItems WorkItem[] @relation("WorkAssignee")
+  createdWorkItems  WorkItem[] @relation("WorkCreator")
+  workComments      WorkComment[]
+
+Then append these models to the bottom of schema.prisma:
+
+model WorkWorkspace {
+  id        Int         @id @default(autoincrement())
+  name      String
+  active    Boolean     @default(true)
+  createdAt DateTime    @default(now())
+  boards    WorkBoard[]
+}
+
+model WorkBoard {
+  id          Int           @id @default(autoincrement())
+  workspaceId Int
+  workspace   WorkWorkspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  active      Boolean       @default(true)
+  createdAt   DateTime      @default(now())
+  items       WorkItem[]
+}
+
+model WorkItem {
+  id          Int          @id @default(autoincrement())
+  boardId     Int
+  board       WorkBoard    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  status      String       @default("TO_DO")
+  priority    String       @default("MEDIUM")
+  dueDate     DateTime?
+  assigneeId  Int?
+  assignee    TeamMember?  @relation("WorkAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  createdById Int?
+  createdBy   TeamMember?  @relation("WorkCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  comments    WorkComment[]
+}
+
+model WorkComment {
+  id        Int         @id @default(autoincrement())
+  itemId    Int
+  item      WorkItem    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  authorId  Int?
+  author    TeamMember? @relation(fields: [authorId], references: [id], onDelete: SetNull)
+  body      String
+  createdAt DateTime    @default(now())
+}
