@@ -1,0 +1,19 @@
+BAKED MONDAY-STYLE UPDATE
+
+Upload these files into your existing:
+BAKED-BAKING-INVENTORY-V2
+
+Keep the folder structure exactly as shown.
+
+Replace:
+app/components.js
+app/globals.css
+
+Upload/replace:
+app/work-management/page.js
+app/work-management/work-management-client.js
+
+You can extract this ZIP and drag the app folder into the BAKED-BAKING-INVENTORY-V2 folder in GitHub.
+When GitHub asks about existing files, the matching files need to be replaced/committed.
+
+Vercel should redeploy automatically after the GitHub commit.
