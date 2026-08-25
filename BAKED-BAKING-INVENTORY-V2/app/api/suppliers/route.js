@@ -52,3 +52,31 @@ export async function PATCH(req){
     return Response.json({error:e.message||'Supplier update failed'},{status:400});
   }
 }
+
+export async function DELETE(req){
+  try{
+    const auth=await manager(); if(auth.error) return auth.error;
+
+    const d=await req.json();
+    const id=Number(d.id);
+    if(!id) throw new Error('Supplier ID missing');
+
+    const supplier=await prisma.supplier.findUnique({
+      where:{id},
+      include:{_count:{select:{purchaseOrders:true}}}
+    });
+
+    if(!supplier)
+      return Response.json({error:'Supplier not found'},{status:404});
+
+    if(supplier._count.purchaseOrders>0)
+      return Response.json({
+        error:'This supplier is linked to existing purchase orders and cannot be deleted. Set the supplier to inactive instead.'
+      },{status:409});
+
+    await prisma.supplier.delete({where:{id}});
+    return Response.json({ok:true,id});
+  }catch(e){
+    return Response.json({error:e.message||'Supplier delete failed'},{status:400});
+  }
+}
