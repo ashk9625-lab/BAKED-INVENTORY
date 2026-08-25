@@ -1,2 +1,0 @@
-'use client'; import {useRouter} from 'next/navigation'; import {useState} from 'react';
-export default function B({id}){const r=useRouter();const[busy,setBusy]=useState(false);async function go(){if(!confirm('Receive all outstanding quantities on this PO?'))return;setBusy(true);const res=await fetch(`/api/purchase-orders/${id}/receive`,{method:'POST'});const j=await res.json().catch(()=>({}));setBusy(false);if(res.ok)r.refresh();else alert(j.error||'Receive failed');}return <button disabled={busy} onClick={go}>{busy?'Receiving...':'Receive All'}</button>}
