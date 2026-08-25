@@ -19,25 +19,16 @@ button{border:0;border-radius:10px;padding:11px 15px;background:#f2f5f2;color:#1
 @media(max-width:600px){.grid,.grid3,.form-grid{grid-template-columns:1fr}}
 
 .install-wrap{margin-top:18px;margin-bottom:6px}
-.install-button{
-  width:100%;
-  border:1px solid #3a413b;
-  border-radius:10px;
-  padding:11px 12px;
-  background:#f2f5f2;
-  color:#111;
-  font-weight:800;
-  cursor:pointer;
-}
-.install-button:hover{filter:brightness(.94)}
-.install-button:disabled{cursor:default;opacity:.7}
-.install-help{
-  margin-top:9px;
-  padding:10px 11px;
-  border:1px solid #303631;
-  border-radius:10px;
-  background:#0f120f;
-  color:#cbd1cc;
-  font-size:12px;
-  line-height:1.45;
-}
+.install-button{width:100%;border:1px solid #3a413b;border-radius:10px;padding:11px 12px;background:#f2f5f2;color:#111;font-weight:800;cursor:pointer}
+.install-button:hover{filter:brightness(.94)}.install-button:disabled{cursor:default;opacity:.7}
+.install-help{margin-top:9px;padding:10px 11px;border:1px solid #303631;border-radius:10px;background:#0f120f;color:#cbd1cc;font-size:12px;line-height:1.45}
+
+.success-box{border:1px solid #42614a;background:#112117;padding:12px 14px;border-radius:12px;font-weight:700}
+.error-box{border:1px solid #703d3d;background:#281313;padding:11px 12px;border-radius:10px;color:#ffd5d5}
+.auth-page{min-height:100vh;display:grid;place-items:center;padding:24px}
+.auth-card{width:min(440px,100%);background:#141815;border:1px solid #252a27;border-radius:18px;padding:28px}
+.auth-card h1{margin:28px 0 6px}.auth-form{display:grid;gap:12px;margin-top:20px}.setup-link{display:block;margin-top:18px;text-align:center;color:#cbd1cc;text-decoration:underline}
+.staff-card{margin-top:28px;padding:12px;border:1px solid #252a27;border-radius:12px;display:grid;gap:4px}
+.staff-card span{color:#9ba69e;font-size:11px}.staff-card form{margin-top:8px}
+.logout-button{width:100%;background:#202620;color:#fff;padding:9px}
+.edit-table input,.edit-table select{min-width:120px;padding:8px 9px}

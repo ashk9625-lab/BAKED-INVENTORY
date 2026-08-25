@@ -1,7 +1,2 @@
-import {Shell,EmptyRow} from '../components'; import {prisma} from '../../lib/prisma'; import Form from './form'; import ReceiveButton from './receive-button';
-export const dynamic='force-dynamic';
-export default async function Page(){const [suppliers,products,orders]=await Promise.all([prisma.supplier.findMany({where:{active:true},orderBy:{name:'asc'}}),prisma.product.findMany({where:{active:true},orderBy:{name:'asc'}}),prisma.purchaseOrder.findMany({include:{supplier:true,items:{include:{product:true}}},orderBy:{createdAt:'desc'},take:100})]);return <Shell>
-<div className="topbar"><div className="title"><h1>Purchase Orders</h1><p>Create POs and receive supplier stock directly into inventory.</p></div></div>
-<div className="card"><Form suppliers={suppliers} products={products}/></div>
-<section className="section"><div className="table-wrap"><table><thead><tr><th>PO</th><th>Supplier</th><th>Status</th><th>Expected</th><th>Items</th><th>Action</th></tr></thead><tbody>
-{orders.length?orders.map(o=><tr key={o.id}><td>{o.poNumber}</td><td>{o.supplier.name}</td><td><span className="badge">{o.status}</span></td><td>{o.expectedDate?o.expectedDate.toLocaleDateString():'-'}</td><td>{o.items.map(i=><div key={i.id}>{i.product.sku}: {Number(i.quantityReceived)}/{Number(i.quantityOrdered)} {i.product.unit}</div>)}</td><td>{o.status!=='RECEIVED'?<ReceiveButton id={o.id}/>: 'Complete'}</td></tr>):<EmptyRow colSpan={6}/>}</tbody></table></div></section></Shell>}
+import { redirect } from 'next/navigation';
+export default function PurchaseOrdersRemoved(){ redirect('/'); }

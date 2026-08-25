@@ -1,3 +1,25 @@
-import {Shell,EmptyRow} from '../components'; import {prisma} from '../../lib/prisma'; import Form from './form';
+import {Shell,EmptyRow} from '../components';
+import {prisma} from '../../lib/prisma';
+import {requireUser} from '../../lib/auth';
+import Form from './form';
+import TeamTable from './team-table';
+
 export const dynamic='force-dynamic';
-export default async function Page(){const rows=await prisma.teamMember.findMany({orderBy:{name:'asc'}});return <Shell><div className="topbar"><div className="title"><h1>Team & Roles</h1><p>Staff accountability register.</p></div></div><div className="card"><Form/></div><section className="section"><div className="notice">Roles are recorded here. Enforced login permissions can be added as the next security layer.</div><div className="table-wrap" style={{marginTop:12}}><table><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Active</th></tr></thead><tbody>{rows.length?rows.map(m=><tr key={m.id}><td>{m.name}</td><td>{m.email}</td><td>{m.role}</td><td>{m.active?'Yes':'No'}</td></tr>):<EmptyRow colSpan={4}/>}</tbody></table></div></section></Shell>}
+
+export default async function Page(){
+  const user=await requireUser(['ADMIN']);
+  const rows=await prisma.teamMember.findMany({orderBy:{name:'asc'}});
+  const data=rows.map(m=>({
+    id:m.id,name:m.name,email:m.email,role:m.role,active:m.active,password:''
+  }));
+
+  return <Shell requiredRoles={['ADMIN']}>
+    <div className="topbar">
+      <div className="title"><h1>Team & Permissions</h1><p>Create staff logins and control access.</p></div>
+    </div>
+    <div className="card"><Form/></div>
+    <section className="section">
+      {data.length?<TeamTable initial={data} currentUserId={user.id}/>:<div className="notice">No staff accounts.</div>}
+    </section>
+  </Shell>;
+}

@@ -1,3 +1,24 @@
-import {Shell,EmptyRow} from '../components'; import {prisma} from '../../lib/prisma'; import Form from './form';
+import {Shell} from '../components';
+import {prisma} from '../../lib/prisma';
+import Form from './form';
+import SupplierTable from './supplier-table';
+
 export const dynamic='force-dynamic';
-export default async function Page(){const rows=await prisma.supplier.findMany({orderBy:{name:'asc'}});return <Shell><div className="topbar"><div className="title"><h1>Suppliers</h1><p>Supplier details and lead times.</p></div></div><div className="card"><Form/></div><section className="section"><div className="table-wrap"><table><thead><tr><th>Name</th><th>Contact</th><th>Email</th><th>Phone</th><th>Lead Time</th><th>Notes</th></tr></thead><tbody>{rows.length?rows.map(s=><tr key={s.id}><td>{s.name}</td><td>{s.contactPerson||'-'}</td><td>{s.email||'-'}</td><td>{s.phone||'-'}</td><td>{s.leadTimeDays} days</td><td>{s.notes||'-'}</td></tr>):<EmptyRow colSpan={6}/>}</tbody></table></div></section></Shell>}
+
+export default async function Page(){
+  const rows=await prisma.supplier.findMany({orderBy:{name:'asc'}});
+  const data=rows.map(s=>({
+    id:s.id,name:s.name,contactPerson:s.contactPerson||'',email:s.email||'',
+    phone:s.phone||'',leadTimeDays:s.leadTimeDays,notes:s.notes||'',active:s.active
+  }));
+
+  return <Shell>
+    <div className="topbar">
+      <div className="title"><h1>Suppliers</h1><p>Add and edit supplier details and lead times.</p></div>
+    </div>
+    <div className="card"><Form/></div>
+    <section className="section">
+      <SupplierTable initial={data}/>
+    </section>
+  </Shell>;
+}
