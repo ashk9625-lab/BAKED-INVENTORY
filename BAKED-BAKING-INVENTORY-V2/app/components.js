@@ -7,7 +7,8 @@ export async function Shell({children, requiredRoles=[]}) {
 
   const links = [
     ['/', 'Dashboard'],
-    ['/products','Products'],
+['/work-management', 'Work Management'],
+['/products','Products'],
     ['/inventory','Stock Movements'],
     ['/production','Production'],
     ['/recipes','Recipes / BOM'],
