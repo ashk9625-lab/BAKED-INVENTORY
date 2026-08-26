@@ -41,13 +41,37 @@ export default function ProductManager({initial}){
     }catch(e){setMessage(e.message)}
   }
 
-  async function remove(id){
-    if(!confirm('Delete this product?')) return;
+  async function remove(row){
+    if(!confirm(`Delete "${row.name}"?`)) return;
     try{
-      await api('DELETE',{id});
-      setRows(r=>r.filter(v=>v.id!==id));
+      await api('DELETE',{id:row.id});
+      setRows(r=>r.filter(v=>v.id!==row.id));
       setMessage('✓ Product deleted');
-    }catch(e){setMessage(e.message)}
+    }catch(e){
+      if(String(e.message).includes('linked to existing inventory records')){
+        const ok=confirm(
+          `"${row.name}" is linked to inventory history.\n\n`+
+          `Force Delete will permanently remove the product AND all linked stock movements, purchase-order items, transfers and recipe links.\n\n`+
+          `Continue?`
+        );
+        if(!ok){ setMessage('Delete cancelled'); return; }
+
+        const finalConfirm=confirm(
+          `FINAL CONFIRMATION\n\nPermanently force delete "${row.name}" and all linked records?`
+        );
+        if(!finalConfirm){ setMessage('Delete cancelled'); return; }
+
+        try{
+          await api('DELETE',{id:row.id,force:true});
+          setRows(r=>r.filter(v=>v.id!==row.id));
+          setMessage('✓ Product and linked records permanently deleted');
+        }catch(err){
+          setMessage(err.message);
+        }
+      }else{
+        setMessage(e.message);
+      }
+    }
   }
 
   const update=(id,key,val)=>setRows(r=>r.map(x=>x.id===id?{...x,[key]:val}:x));
@@ -99,7 +123,9 @@ export default function ProductManager({initial}){
               <td>
                 <div className="actions">
                   <button type="button" onClick={()=>save(r)} disabled={busy}>Save</button>
-                  <button type="button" onClick={()=>remove(r.id)} disabled={busy}>Delete</button>
+                  <button type="button" onClick={()=>remove(r)} disabled={busy} style={{
+                    background:'#7f1d1d',color:'#fff',border:'1px solid #991b1b'
+                  }}>Delete</button>
                 </div>
               </td>
             </tr>):<tr><td colSpan="10" className="muted">No products yet.</td></tr>}

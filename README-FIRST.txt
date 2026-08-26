@@ -1,4 +1,4 @@
-BAKED Inventory Products 404 fix.
+BAKED Inventory Product Force Delete fix.
 
 Upload the BAKED-BAKING-INVENTORY-V2 folder from the repository root and commit to main.
-Adds the Products page plus product create/edit/delete API.
+Admin/Manager can force-delete a product after two confirmations. Linked stock movements, purchase-order items, transfers and recipe links are permanently removed.
