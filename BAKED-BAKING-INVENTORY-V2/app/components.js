@@ -7,13 +7,11 @@ export async function Shell({children, requiredRoles=[]}) {
 
   const links = [
     ['/', 'Dashboard'],
-['/work-management', 'Work Management'],
-['/products','Products'],
+    ['/work-management', 'Work Management'],
+    ['/products','Products'],
     ['/inventory','Stock Movements'],
     ['/production','Production'],
-   
     ['/suppliers','Suppliers'],
-    
     ['/reports','Reports'],
     ...(user.role === 'ADMIN' ? [['/team','Team & Permissions']] : [])
   ];
@@ -22,11 +20,8 @@ export async function Shell({children, requiredRoles=[]}) {
     <aside className="sidebar">
       <div className="brand">BAKED</div>
       <div className="subbrand">Baking Team Inventory</div>
-
       <InstallButton />
-
       <nav className="nav">{links.map(([h,l])=><Link key={h} href={h}>{l}</Link>)}</nav>
-
       <div className="staff-card">
         <strong>{user.name}</strong>
         <span>{user.role.replaceAll('_',' ')}</span>
