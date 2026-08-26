@@ -11,7 +11,6 @@ export async function Shell({children, requiredRoles=[]}) {
     ['/products','Products'],
     ['/inventory','Stock Movements'],
     ['/production','Production'],
-    ['/recipes','Recipes / BOM'],
     ['/suppliers','Suppliers'],
     ['/reports','Reports'],
     ...(user.role === 'ADMIN' ? [['/team','Team & Permissions']] : [])
