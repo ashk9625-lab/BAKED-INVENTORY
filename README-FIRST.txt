@@ -1,1 +1,4 @@
-BAKED Inventory Reports page 404 fix.\n\nUpload the BAKED-BAKING-INVENTORY-V2 folder from the repository root and commit to main.\nThis adds the missing app/reports/page.js file.\n
+BAKED Inventory Products 404 fix.
+
+Upload the BAKED-BAKING-INVENTORY-V2 folder from the repository root and commit to main.
+Adds the Products page plus product create/edit/delete API.
