@@ -1,4 +1,8 @@
-BAKED Inventory Work Management dark-theme fix.
+BAKED Inventory SAFE dark-theme deployment fix
 
-Upload the BAKED-BAKING-INVENTORY-V2 folder to the ROOT of your GitHub repository using Add file > Upload files, then commit to main.
-This only replaces app/work-management/work-management.css and keeps all live feed/alerts functionality.
+Upload the BAKED-BAKING-INVENTORY-V2 folder at the ROOT of GitHub and commit to main.
+This package includes:
+- dark Work Management styling
+- Prisma mappings for work_live_state and work_activity
+- NO --accept-data-loss flag
+- preserves existing live Work Management data

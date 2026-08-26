@@ -143,6 +143,29 @@ model TeamMember {
   passwordHash String?
   lastLoginAt  DateTime?
   createdAt    DateTime        @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
+  updatedAt    DateTime        @default(now()) @updatedAt
   movements    StockMovement[]
+}
+
+/* These two models map Prisma to the live Work Management tables created
+   by app/api/work/live-state/route.js. Keeping them in the schema prevents
+   `prisma db push` from trying to drop those populated tables on Vercel. */
+model WorkLiveState {
+  id        Int      @id
+  data      Json
+  updatedAt DateTime @default(now()) @map("updated_at")
+  updatedBy String?  @map("updated_by")
+
+  @@map("work_live_state")
+}
+
+model WorkActivity {
+  id        BigInt   @id @default(autoincrement())
+  actor     String
+  eventType String   @default("update") @map("event_type")
+  message   String
+  urgent    Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("work_activity")
 }
