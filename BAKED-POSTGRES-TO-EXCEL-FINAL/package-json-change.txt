@@ -1,0 +1,3 @@
+Add inside your EXISTING package.json "dependencies" object:
+
+"exceljs": "^4.4.0"
