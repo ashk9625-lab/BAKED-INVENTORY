@@ -145,7 +145,7 @@ export default function WorkManagementClient() {
   function addItem(groupId) {
     const item = {
       id:uid('i'), task:'New item', owner:'Unassigned', status:'Not Started',
-      priority:'Medium', dueDate:'', note:'', done:false, updates:[]
+      priority:'Medium', dueDate:'', note:'', quantity:'', extras:'', issues:'', completedAt:'', done:false, updates:[]
     };
     setData(d => ({...d,groups:d.groups.map(g => g.id===groupId ? {...g,items:[...g.items,item]} : g)}));
     const group = data.groups.find(g=>g.id===groupId);
@@ -153,6 +153,7 @@ export default function WorkManagementClient() {
   }
 
   function updateItem(groupId, itemId, changes, activity=null) {
+    if (changes.status === 'Done' || changes.done === true) changes = {...changes, completedAt: changes.completedAt || new Date().toISOString()};
     setData(d => ({
       ...d,
       groups:d.groups.map(g => g.id===groupId
@@ -302,7 +303,7 @@ function TableBoard({groups,renameGroup,deleteGroup,addItem,updateItem,deleteIte
         <div className="group-head-actions"><span>{g.items.length} items</span><button onClick={()=>deleteGroup(g.id)}>Delete Group</button></div>
       </div>
       <div className="board-table-wrap"><table className="board-table">
-        <thead><tr><th className="check-col"></th><th>Item</th><th>Owner</th><th>Status</th><th>Priority</th><th>Due Date</th><th>Notes</th><th>Updates</th><th></th></tr></thead>
+        <thead><tr><th className="check-col"></th><th>Item</th><th>Owner</th><th>Status</th><th>Priority</th><th>Due Date</th><th>Quantity</th><th>Extras</th><th>Issues</th><th>Notes</th><th>Updates</th><th></th></tr></thead>
         <tbody>
           {g.items.map(i=><tr key={i.id}>
             <td><input type="checkbox" checked={!!i.done} onChange={e=>updateItem(g.id,i.id,
@@ -320,11 +321,14 @@ function TableBoard({groups,renameGroup,deleteGroup,addItem,updateItem,deleteIte
               updateItem(g.id,i.id,{priority}, {type:'priority',message:`Set “${i.task}” priority to ${priority}`,urgent:priority==='Urgent'});
             }}>{priorities.map(p=><option key={p}>{p}</option>)}</select></td>
             <td><input type="date" value={i.dueDate} onChange={e=>updateItem(g.id,i.id,{dueDate:e.target.value})}/></td>
+            <td><input type="number" min="0" step="0.01" value={i.quantity??''} onChange={e=>updateItem(g.id,i.id,{quantity:e.target.value})}/></td>
+            <td><input type="number" min="0" step="0.01" value={i.extras??''} onChange={e=>updateItem(g.id,i.id,{extras:e.target.value})}/></td>
+            <td><input value={i.issues??''} placeholder="N/A" onChange={e=>updateItem(g.id,i.id,{issues:e.target.value})}/></td>
             <td><input value={i.note} onChange={e=>updateItem(g.id,i.id,{note:e.target.value})}/></td>
             <td><button className="updates-btn" onClick={()=>setSelectedItem({...i,groupId:g.id})}>{i.updates?.length||0} updates</button></td>
             <td><button className="icon-btn" onClick={()=>deleteItem(g.id,i.id)}>×</button></td>
           </tr>)}
-          <tr className="add-row"><td></td><td colSpan="8"><button onClick={()=>addItem(g.id)}>+ Add Item</button></td></tr>
+          <tr className="add-row"><td></td><td colSpan="11"><button onClick={()=>addItem(g.id)}>+ Add Item</button></td></tr>
         </tbody>
       </table></div>
     </section>)}
