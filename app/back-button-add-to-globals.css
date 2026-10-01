@@ -1,0 +1,38 @@
+/* ===== BAKED BACK BUTTON ===== */
+.baked-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 9px 14px;
+  margin: 0 0 16px 0;
+  border: 1px solid #d7d7d7;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #111111;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.baked-back-button:hover {
+  background: #f5f5f5;
+}
+
+.baked-back-button:active {
+  transform: translateY(1px);
+}
+
+.baked-back-button span:first-child {
+  font-size: 22px;
+  line-height: 1;
+}
+
+@media (max-width: 640px) {
+  .baked-back-button {
+    min-height: 46px;
+    padding: 10px 14px;
+  }
+}

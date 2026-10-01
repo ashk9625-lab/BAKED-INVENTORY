@@ -1,17 +1,44 @@
-BAKED INVENTORY - LIVE WORK MANAGEMENT + MANAGER ALERTS
+BAKED BAKING TEAM INVENTORY — BACK BUTTON UPGRADE
 
-Upload these files into the existing BAKED-INVENTORY repository while preserving the folder paths:
+PURPOSE
+Adds a phone/desktop friendly Back button without changing Work Management,
+inventory, PostgreSQL data, or the Excel reporting integration.
 
-1) BAKED-BAKING-INVENTORY-V2/app/api/work/live-state/route.js  (NEW)
-2) BAKED-BAKING-INVENTORY-V2/app/app/work-management/work-management-client.js  (REPLACE)
-3) BAKED-BAKING-INVENTORY-V2/app/app/work-management/work-management.css  (REPLACE)
+FILES
+1. app/back-button.js
+   ADD this new file to your existing app folder.
 
-What it does:
-- Stores Work Management board state in the shared PostgreSQL database instead of localStorage.
-- Polls every 5 seconds so manager/admin can see staff changes from other devices.
-- Adds a Live Manager Feed.
-- Adds Alerts for Stuck, Overdue and Urgent tasks.
-- Records staff activity with name and timestamp.
-- Uses raw SQL tables created automatically; no Prisma schema change is required.
+2. app/back-button-add-to-globals.css
+   DO NOT upload this file as globals.css.
+   Open it, copy its contents, and paste them at the BOTTOM of:
+   app/globals.css
 
-After the GitHub commit, Vercel should deploy automatically.
+3. BACK-BUTTON-EXAMPLE.txt
+   Shows the two lines needed on any internal page where the Back button
+   should appear.
+
+HOW TO ADD IT TO A PAGE
+At the top of the page, import BackButton. The relative path depends on
+where that page lives.
+
+Then place:
+    <BackButton />
+
+immediately before the page heading/content.
+
+BEHAVIOUR
+- If the user navigated from another BAKED screen, Back returns there.
+- If there is no useful browser history, it falls back to the Dashboard (/).
+- It does not write to or change the database.
+- It does not change Work Management records.
+- It does not change the PostgreSQL-to-Excel reporting system.
+- Works on mobile and desktop.
+
+IMPORTANT
+The complete live source tree was not available when this patch was made,
+so this package intentionally does NOT overwrite layout.js, components.js,
+or any existing page. That prevents accidental removal of features from
+your current deployed version.
+
+After uploading/merging the files, commit to GitHub and allow Vercel to
+deploy normally.

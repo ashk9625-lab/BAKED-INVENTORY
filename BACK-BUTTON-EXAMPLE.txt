@@ -1,0 +1,10 @@
+// EXAMPLE ONLY — add these two pieces to an internal page.
+
+// 1. At the top of the page:
+import BackButton from "../back-button";
+
+// If the page is deeper, adjust the relative path, for example:
+// import BackButton from "../../back-button";
+
+// 2. Inside the page JSX, immediately before the page heading/content:
+<BackButton />
