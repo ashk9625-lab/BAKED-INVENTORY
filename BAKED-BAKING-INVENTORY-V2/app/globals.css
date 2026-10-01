@@ -32,3 +32,5 @@ button{border:0;border-radius:10px;padding:11px 15px;background:#f2f5f2;color:#1
 .staff-card span{color:#9ba69e;font-size:11px}.staff-card form{margin-top:8px}
 .logout-button{width:100%;background:#202620;color:#fff;padding:9px}
 .edit-table input,.edit-table select{min-width:120px;padding:8px 9px}
+
+.infusion-tabs{display:flex;gap:8px;flex-wrap:wrap}.infusion-tabs button{background:#202620;color:#fff;border:1px solid #303631}.infusion-tabs button.active{background:#f2f5f2;color:#111}
