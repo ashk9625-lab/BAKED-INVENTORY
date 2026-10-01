@@ -115,6 +115,9 @@ model ProductionBatch {
   recipeId      Int?
   productName   String
   quantityMade  Decimal
+  personResponsible String?
+  extras        Decimal  @default(0)
+  issues        String?
   unit          String   @default("unit")
   status        String   @default("COMPLETED")
   notes         String?
