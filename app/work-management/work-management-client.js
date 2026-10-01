@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import BackButton from '../back-button';
 
 const STORAGE_KEY = 'baked-work-management-v1';
 const initialData = { boardName:'BAKED Operations Board', groups:[{id:'g1',name:'This Week',items:[{id:'i1',task:'Example task',owner:'Unassigned',status:'Working on it',priority:'Medium',dueDate:'',note:'',done:false,updates:[]}]}]};
@@ -20,6 +21,7 @@ export default function WorkManagementClient(){
  const groups=useMemo(()=>{const q=query.toLowerCase().trim();return !q?data.groups:data.groups.map(g=>({...g,items:g.items.filter(i=>[i.task,i.owner,i.status,i.priority,i.note].some(v=>String(v||'').toLowerCase().includes(q)))})).filter(g=>g.items.length)},[data.groups,query]);
 
  return <div className="monday-shell">
+  <BackButton />
   <header className="monday-top">
    <div><div className="eyebrow">BAKED INVENTORY</div><input className="board-title-input" value={data.boardName} onChange={e=>setData({...data,boardName:e.target.value})}/><div className="board-subtitle">Work Management</div></div>
    <div className="top-actions"><button className={view==='table'?'active':''} onClick={()=>setView('table')}>Table</button><button className={view==='kanban'?'active':''} onClick={()=>setView('kanban')}>Kanban</button></div>
