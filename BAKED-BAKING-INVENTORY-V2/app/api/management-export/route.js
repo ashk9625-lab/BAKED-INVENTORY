@@ -23,10 +23,10 @@ export async function GET() {
     for (const r of rows) ws.addRow({
       date: r.createdAt,
       item: r.productName || '',
-      person: '',
+      person: r.personResponsible || '',
       quantity: Number(r.quantityMade || 0),
-      extras: 0,
-      issues: r.notes || 'N/A',
+      extras: Number(r.extras || 0),
+      issues: r.issues || r.notes || 'N/A',
     });
     ws.getColumn(1).numFmt = 'dd/mm/yyyy';
     const buffer = await wb.xlsx.writeBuffer();
