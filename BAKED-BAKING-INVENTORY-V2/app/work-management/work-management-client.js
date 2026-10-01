@@ -226,6 +226,7 @@ export default function WorkManagementClient() {
       </div>
       <div className="top-actions">
         <span className={`live-indicator ${liveStatus==='Live'?'is-live':''}`}><i></i>{liveStatus}</span>
+        {isManager && <a className="management-excel-button" href="/api/management-export">Excel Report</a>}
         {isManager && <button className="alerts-button" onClick={openAlerts}>Alerts {alertCount>0 && <b>{alertCount}</b>}</button>}
         <button onClick={()=>setView('table')} className={view==='table'?'active':''}>Table</button>
         <button onClick={()=>setView('kanban')} className={view==='kanban'?'active':''}>Kanban</button>
