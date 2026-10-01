@@ -321,3 +321,5 @@
   .toolbar{flex-wrap:wrap}
   .toolbar input{min-width:100%;flex:1}
 }
+
+.wm-back-button{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:9px 14px;border:1px solid #2a3a34;border-radius:10px;background:#111915;color:#fff;font-weight:800;cursor:pointer}.wm-back-button:hover{background:#18231e}.wm-back-button:active{transform:translateY(1px)}@media(max-width:640px){.wm-back-button{min-height:46px;padding:10px 14px}}
