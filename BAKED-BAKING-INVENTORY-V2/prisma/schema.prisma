@@ -172,3 +172,26 @@ model WorkActivity {
 
   @@map("work_activity")
 }
+
+
+model InfusionBatch {
+  id                  Int      @id @default(autoincrement())
+  section             String
+  batchNumber         String   @unique
+  productName         String
+  inputMaterial       String
+  inputQuantity       Decimal
+  inputUnit           String   @default("g")
+  infusionIngredient  String
+  infusionQuantity    Decimal
+  infusionUnit        String   @default("g")
+  potency             Decimal?
+  potencyUnit         String?
+  personResponsible   String
+  finalYield          Decimal
+  yieldUnit           String   @default("g")
+  wastage             Decimal  @default(0)
+  status              String   @default("COMPLETED")
+  notes               String?
+  createdAt           DateTime @default(now())
+}
