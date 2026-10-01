@@ -211,6 +211,28 @@ export default function WorkManagementClient() {
     else window.location.href = '/';
   }
 
+  function openExcelReport() {
+    const password = window.prompt('Enter management password');
+    if (password === null) return;
+    fetch('/api/management-export', {
+      headers: { 'x-management-password': password }
+    }).then(async res => {
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || 'Incorrect password');
+      }
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Baking Room Data Control LIVE.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }).catch(err => alert(err.message));
+  }
+
   function openAlerts() {
     setAlertsOpen(true);
     if (activities.length) setLastSeenId(Number(activities[0].id || 0));
@@ -226,7 +248,7 @@ export default function WorkManagementClient() {
       </div>
       <div className="top-actions">
         <span className={`live-indicator ${liveStatus==='Live'?'is-live':''}`}><i></i>{liveStatus}</span>
-        {isManager && <a className="management-excel-button" href="/api/management-export">Excel Report</a>}
+        {isManager && <button type="button" className="management-excel-button" onClick={openExcelReport}>Excel Report</button>}
         {isManager && <button className="alerts-button" onClick={openAlerts}>Alerts {alertCount>0 && <b>{alertCount}</b>}</button>}
         <button onClick={()=>setView('table')} className={view==='table'?'active':''}>Table</button>
         <button onClick={()=>setView('kanban')} className={view==='kanban'?'active':''}>Kanban</button>
