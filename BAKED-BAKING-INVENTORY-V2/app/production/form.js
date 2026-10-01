@@ -18,6 +18,9 @@ export default function F({recipes}) {
       </select>
       <input name="batchNumber" placeholder="Batch number" required/>
       <input name="multiplier" type="number" step="0.01" min="0.01" defaultValue="1" placeholder="Batch multiplier"/>
+      <input name="personResponsible" placeholder="Person responsible" required/>
+      <input name="extras" type="number" step="0.01" min="0" defaultValue="0" placeholder="Extras"/>
+      <input name="issues" placeholder="Issues (or N/A)"/>
       <input name="notes" placeholder="Production notes"/>
     </div>
     {x&&<div className="notice" style={{marginTop:12}}>
