@@ -66,6 +66,9 @@ export async function POST(req){
           recipeId:r.id,
           productName:r.outputProduct.name,
           quantityMade:made,
+          personResponsible:d.personResponsible||user.name||user.email||null,
+          extras:Number(d.extras||0),
+          issues:d.issues||null,
           unit:r.outputProduct.unit,
           notes:d.notes||null
         }
