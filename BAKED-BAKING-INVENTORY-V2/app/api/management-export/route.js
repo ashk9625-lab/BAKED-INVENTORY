@@ -12,7 +12,11 @@ export async function GET(request) {
     if (!expectedPassword || suppliedPassword !== expectedPassword) {
       return NextResponse.json({ error: 'Incorrect management password' }, { status: 401 });
     }
-    const rows = await prisma.productionBatch.findMany({ orderBy: { createdAt: 'asc' } });
+    const live = await prisma.workLiveState.findUnique({ where: { id: 1 } });
+    const groups = Array.isArray(live?.data?.groups) ? live.data.groups : [];
+    const rows = groups.flatMap(g => (g.items || []).map(item => ({...item, groupName:g.name})))
+      .filter(item => item.status === 'Done' || item.done === true)
+      .sort((a,b) => new Date(a.completedAt || a.dueDate || 0) - new Date(b.completedAt || b.dueDate || 0));
     const wb = new ExcelJS.Workbook();
     const ws = wb.addWorksheet('Production Data');
     ws.columns = [
@@ -26,12 +30,12 @@ export async function GET(request) {
     ws.getRow(1).font = { bold:true };
     ws.views = [{ state:'frozen', ySplit:1 }];
     for (const r of rows) ws.addRow({
-      date: r.createdAt,
-      item: r.productName || '',
-      person: r.personResponsible || '',
-      quantity: Number(r.quantityMade || 0),
+      date: r.completedAt ? new Date(r.completedAt) : (r.dueDate ? new Date(r.dueDate+'T12:00:00') : new Date()),
+      item: r.task || '',
+      person: r.owner || '',
+      quantity: Number(r.quantity || 0),
       extras: Number(r.extras || 0),
-      issues: r.issues || r.notes || 'N/A',
+      issues: r.issues || 'N/A',
     });
     ws.getColumn(1).numFmt = 'dd/mm/yyyy';
     const buffer = await wb.xlsx.writeBuffer();
