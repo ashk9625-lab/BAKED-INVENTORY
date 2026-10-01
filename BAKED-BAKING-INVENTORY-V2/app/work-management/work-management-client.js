@@ -206,12 +206,18 @@ export default function WorkManagementClient() {
     stuck:allItems.filter(i=>i.status==='Stuck').length
   }),[allItems]);
 
+  function goBack() {
+    if (typeof window !== 'undefined' && window.history.length > 1) window.history.back();
+    else window.location.href = '/';
+  }
+
   function openAlerts() {
     setAlertsOpen(true);
     if (activities.length) setLastSeenId(Number(activities[0].id || 0));
   }
 
   return <div className="monday-shell">
+    <button type="button" className="wm-back-button" onClick={goBack} aria-label="Go back">← Back</button>
     <header className="monday-top">
       <div>
         <div className="eyebrow">BAKED INVENTORY</div>
