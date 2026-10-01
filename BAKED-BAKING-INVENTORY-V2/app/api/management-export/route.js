@@ -5,8 +5,13 @@ import { prisma } from '../../../lib/prisma';
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const suppliedPassword = request.headers.get('x-management-password');
+    const expectedPassword = process.env.MANAGEMENT_EXCEL_PASSWORD;
+    if (!expectedPassword || suppliedPassword !== expectedPassword) {
+      return NextResponse.json({ error: 'Incorrect management password' }, { status: 401 });
+    }
     const rows = await prisma.productionBatch.findMany({ orderBy: { createdAt: 'asc' } });
     const wb = new ExcelJS.Workbook();
     const ws = wb.addWorksheet('Production Data');
